@@ -1,16 +1,15 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { BadgeCheck, ChevronDown, ChevronUp } from "lucide-react";
 
 const brl = (n: number) =>
   n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
 
 export function PixDiscount() {
-  const [valor, setValor] = useState(2579.2);
-  const [desconto, setDesconto] = useState(10);
+  const valor = 2579.2;
+  const desconto = 10;
   const [aberto, setAberto] = useState(true);
 
-
-  const final = useMemo(() => valor * (1 - desconto / 100), [valor, desconto]);
+  const final = valor * (1 - desconto / 100);
   const economia = valor - final;
 
   return (
@@ -25,29 +24,15 @@ export function PixDiscount() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm">
-          <span className="text-muted-foreground">Valor original (R$)</span>
-          <input
-            type="number"
-            min={0}
-            step="0.01"
-            value={valor}
-            onChange={(e) => setValor(Number(e.target.value) || 0)}
-            className="mt-2 w-full rounded-xl border border-border bg-background px-3 py-2.5 font-semibold outline-none focus:border-primary"
-          />
-        </label>
-        <label className="block text-sm">
-          <span className="text-muted-foreground">Desconto: {desconto}%</span>
-          <input
-            type="range"
-            min={0}
-            max={50}
-            value={desconto}
-            onChange={(e) => setDesconto(Number(e.target.value))}
-            className="mt-5 w-full accent-[var(--primary)]"
-          />
-        </label>
+      <div className="grid grid-cols-2 gap-3" aria-label="Condições do pagamento">
+        <div className="rounded-xl border border-border bg-background p-3.5">
+          <span className="block text-xs font-medium uppercase text-muted-foreground">Valor original</span>
+          <strong className="mt-1.5 block text-base">{brl(valor)}</strong>
+        </div>
+        <div className="rounded-xl border border-border bg-background p-3.5">
+          <span className="block text-xs font-medium uppercase text-muted-foreground">Desconto aplicado</span>
+          <strong className="mt-1.5 block text-base text-up">{desconto}%</strong>
+        </div>
       </div>
 
       <dl className="space-y-3 rounded-2xl bg-background p-4">
