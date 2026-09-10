@@ -84,7 +84,7 @@ export function HomeTab({ onGoTo }: { onGoTo: (tab: "markets" | "perps" | "searc
 
       <section className="space-y-5">
         <SectionHeader title="Explorar tokens" onClick={() => onGoTo("markets")} />
-        {mainTokens.slice(0, 3).map((t) => (
+        {mainTokens.slice(0, 3).map((t, i) => (
           <button
             key={t.symbol}
             type="button"
@@ -93,7 +93,8 @@ export function HomeTab({ onGoTo }: { onGoTo: (tab: "markets" | "perps" | "searc
           >
             <TokenIcon symbol={t.symbol} bg={t.bg} fg={t.fg} glyph={t.glyph} />
             <span className="min-w-0 flex-1 truncate text-left text-lg font-semibold">{t.name}</span>
-            <span className="text-right">
+            <Sparkline seed={11 + i * 29} up={t.up} width={72} height={30} withDot />
+            <span className="shrink-0 text-right">
               <span className="block text-lg font-semibold">{t.price}</span>
               <span className={`block text-sm ${t.up ? "text-up" : "text-down"}`}>{t.change}</span>
             </span>
