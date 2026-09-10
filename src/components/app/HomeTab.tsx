@@ -1,4 +1,4 @@
-import { ChevronRight, QrCode, Apple, Sparkles, SlidersHorizontal, Info, Infinity as InfinityIcon } from "lucide-react";
+import { ChevronRight, QrCode, Apple, Info } from "lucide-react";
 import { toast } from "sonner";
 import { Card, SectionHeader, Sparkline, TokenIcon } from "./ui";
 import { mainTokens, perps } from "./data";
@@ -84,7 +84,7 @@ export function HomeTab({ onGoTo }: { onGoTo: (tab: "markets" | "perps" | "searc
 
       <section className="space-y-5">
         <SectionHeader title="Explorar tokens" onClick={() => onGoTo("markets")} />
-        {mainTokens.slice(0, 3).map((t) => (
+        {mainTokens.slice(0, 3).map((t, i) => (
           <button
             key={t.symbol}
             type="button"
@@ -93,7 +93,8 @@ export function HomeTab({ onGoTo }: { onGoTo: (tab: "markets" | "perps" | "searc
           >
             <TokenIcon symbol={t.symbol} bg={t.bg} fg={t.fg} glyph={t.glyph} />
             <span className="min-w-0 flex-1 truncate text-left text-lg font-semibold">{t.name}</span>
-            <span className="text-right">
+            <Sparkline seed={11 + i * 29} up={t.up} width={72} height={30} withDot />
+            <span className="shrink-0 text-right">
               <span className="block text-lg font-semibold">{t.price}</span>
               <span className={`block text-sm ${t.up ? "text-up" : "text-down"}`}>{t.change}</span>
             </span>
@@ -206,40 +207,6 @@ export function HomeTab({ onGoTo }: { onGoTo: (tab: "markets" | "perps" | "searc
         </div>
       </section>
 
-      {/* AI row */}
-      <button
-        type="button"
-        onClick={() => toast("IA da Stone: pergunte qualquer coisa sobre cripto")}
-        className="press flex w-full items-center gap-3 rounded-2xl bg-card p-4"
-      >
-        <Sparkles className="h-6 w-6 shrink-0" />
-        <span className="min-w-0 flex-1 truncate text-left text-[17px] font-semibold">
-          IA da Stone Wallet
-        </span>
-        <span className="flex shrink-0 items-center gap-1 rounded-full bg-elevated px-4 py-2.5 text-[15px] text-muted-foreground">
-          Pergunte... <ChevronRight className="h-4 w-4" />
-        </span>
-      </button>
-
-      <SectionHeader title="Lista de acompanhamento" onClick={() => onGoTo("markets")} />
-
-      <div className="flex justify-center pt-2">
-        <button
-          type="button"
-          onClick={() => toast.success("Painel personalizado salvo")}
-          className="press flex items-center gap-2 rounded-full bg-card px-6 py-3.5 text-[17px] font-medium"
-        >
-          <SlidersHorizontal className="h-5 w-5" /> Personalizar
-        </button>
-      </div>
-
-      <div className="flex items-center justify-center gap-2 pt-2 text-sm text-muted-foreground">
-        <InfinityIcon className="h-4 w-4" /> Stone Wallet · v3.1.0
-      </div>
-
-      <div className="sr-only">
-        <Sparkline seed={1} up />
-      </div>
     </div>
   );
 }

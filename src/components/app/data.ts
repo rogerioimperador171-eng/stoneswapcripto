@@ -21,7 +21,7 @@ export const mainTokens: Token[] = [
     symbol: "BTC",
     name: "Bitcoin",
     price: "$77.997,55",
-    change: "-1.04%",
+    change: "-R$ 2.321,28",
     up: false,
     bg: "#f7931a",
     glyph: "₿",
