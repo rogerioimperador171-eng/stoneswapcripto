@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { BadgeCheck, ChevronDown, ChevronUp } from "lucide-react";
-import comprovante from "@/assets/comprovante.jpeg.asset.json";
 
 const brl = (n: number) =>
   n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
@@ -9,7 +8,6 @@ export function PixDiscount() {
   const [valor, setValor] = useState(2579.2);
   const [desconto, setDesconto] = useState(10);
   const [aberto, setAberto] = useState(true);
-  const [erro, setErro] = useState(false);
 
 
   const final = useMemo(() => valor * (1 - desconto / 100), [valor, desconto]);
@@ -85,23 +83,26 @@ export function PixDiscount() {
       </button>
 
       {aberto ? (
-        erro ? (
-          <p className="rounded-2xl border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
-            A imagem do comprovante não veio junto com o código importado. Envie o arquivo
-            novamente para exibi-la aqui.
-          </p>
-        ) : (
-          <figure className="overflow-hidden rounded-xl bg-card">
-            <img
-              src={comprovante.url}
-              alt="Comprovante de pagamento Pix no valor de R$ 2.321,28 emitido pelo Nubank"
-              loading="lazy"
-              onError={() => setErro(true)}
-              className="mx-auto block h-auto w-full max-w-[420px]"
-            />
-          </figure>
-        )
-
+        <div className="rounded-xl border border-border bg-background p-4" aria-label="Comprovante Pix">
+          <div className="flex items-center gap-2 border-b border-border pb-3">
+            <BadgeCheck className="h-5 w-5 text-up" />
+            <span className="font-semibold">Pix realizado com sucesso</span>
+          </div>
+          <dl className="mt-3 space-y-2 text-sm">
+            <div className="flex justify-between gap-4">
+              <dt className="text-muted-foreground">Valor</dt>
+              <dd className="font-bold text-stone-brand">{brl(final)}</dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt className="text-muted-foreground">Recebedor</dt>
+              <dd className="text-right font-semibold">Pedro Henrique Levoni Vicenti</dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt className="text-muted-foreground">Instituição</dt>
+              <dd className="text-right font-semibold">STONE IP S.A.</dd>
+            </div>
+          </dl>
+        </div>
       ) : null}
     </section>
   );
