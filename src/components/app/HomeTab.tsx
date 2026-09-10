@@ -61,7 +61,7 @@ export function HomeTab({ onGoTo }: { onGoTo: (tab: "markets" | "perps" | "searc
         <ActionTile label="Receber cripto" onClick={() => toast.success("Endereço de recebimento copiado")}>
           <QrCode className="h-9 w-9" />
         </ActionTile>
-        <ActionTile label="Depositar da Binance" onClick={() => toast.info("Conectando à Binance…")}>
+        <ActionTile label="Depósito Binance" onClick={() => toast.info("Conectando à Binance…")}>
           <span className="text-3xl text-warning">◈</span>
         </ActionTile>
         <ActionTile label="Comprar com Apple Pay" onClick={() => toast.info("Abrindo Apple Pay…")}>

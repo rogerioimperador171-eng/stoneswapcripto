@@ -41,7 +41,7 @@
   --color-up: var(--up);
   --color-down: var(--down);
   --color-warning: var(--warning);
-  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -87,6 +87,18 @@
     font-family: var(--font-sans);
     overscroll-behavior-y: none;
     font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    letter-spacing: 0;
   }
 }
 

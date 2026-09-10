@@ -2,20 +2,15 @@ import { useEffect, useState } from "react";
 import { Check, Copy, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 
-const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-const HISTORY_KEY = "stone-code-history";
+const HISTORY_KEY = "stone-pix-key-history";
+const INITIAL_PIX_KEY = "8f1d07c2-6e49-4a35-9b82-71c0e6d4fa93";
 
-
-function makeCode(len: number, groups: number) {
-  const raw = Array.from({ length: len * groups }, () => {
-    const i = Math.floor(Math.random() * ALPHABET.length);
-    return ALPHABET.charAt(i);
-  }).join("");
-  return (raw.match(new RegExp(`.{1,${len}}`, "g")) ?? [raw]).join("-");
+function makeRandomPixKey() {
+  return crypto.randomUUID();
 }
 
 export function CodeGenerator() {
-  const [code, setCode] = useState("STN-4KQ9-P2XM");
+  const [pixKey, setPixKey] = useState(INITIAL_PIX_KEY);
   const [copied, setCopied] = useState(false);
   const [history, setHistory] = useState<string[]>([]);
 
@@ -29,8 +24,8 @@ export function CodeGenerator() {
   }, []);
 
   const generate = () => {
-    const next = `STN-${makeCode(4, 3)}`;
-    setCode(next);
+    const next = makeRandomPixKey();
+    setPixKey(next);
     setCopied(false);
     setHistory((h) => {
       const list = [next, ...h].slice(0, 8);
@@ -46,12 +41,12 @@ export function CodeGenerator() {
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(pixKey);
       setCopied(true);
-      toast.success("Código copiado");
+      toast.success("Chave Pix copiada");
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      toast.error("Não foi possível copiar");
+      toast.error("Não foi possível copiar a chave Pix");
     }
   };
 
@@ -59,17 +54,17 @@ export function CodeGenerator() {
     <section className="space-y-4 rounded-2xl border border-border bg-card/60 p-4">
       <div>
         <p className="text-sm font-medium uppercase tracking-widest text-stone-brand">
-          Gerador de código
+          Gerador de chave Pix
         </p>
-        <h2 className="mt-1 text-xl font-bold leading-tight">Código aleatório de transação</h2>
+        <h2 className="mt-1 text-xl font-bold leading-tight">Chave Pix aleatória</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Gere um código único para identificar cada recebimento.
+          Gere uma chave fictícia e exclusiva para identificar cada coleta.
         </p>
       </div>
 
-      <div className="rounded-xl bg-background px-4 py-5 text-center">
-        <p className="break-all font-mono text-xl font-bold tracking-[0.12em] sm:text-2xl">
-          {code}
+      <div className="rounded-xl border border-border/70 bg-background px-4 py-5 text-center shadow-inner">
+        <p className="break-all font-mono text-[15px] font-semibold leading-relaxed text-foreground sm:text-lg">
+          {pixKey}
         </p>
       </div>
 
@@ -79,12 +74,12 @@ export function CodeGenerator() {
           onClick={generate}
           className="press flex items-center justify-center gap-2 rounded-full bg-primary py-3 text-sm font-semibold text-primary-foreground"
         >
-          <RefreshCw className="h-5 w-5" /> Gerar código
+          <RefreshCw className="h-5 w-5" /> Gerar chave Pix
         </button>
         <button
           type="button"
           onClick={copy}
-          aria-label="Copiar código"
+          aria-label="Copiar chave Pix"
           className="press flex h-11 w-11 items-center justify-center rounded-full bg-elevated"
         >
           {copied ? <Check className="h-5 w-5 text-up" /> : <Copy className="h-5 w-5" />}
