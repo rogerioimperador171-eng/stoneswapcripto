@@ -48,7 +48,7 @@ function Index() {
   const goToLabel = (label: string) => {
     if (label === "Markets") return setTab("markets");
     if (label === "Perps") return setTab("perps");
-    if (label === "Gerador de código") {
+    if (label === "Gerador de chave Pix") {
       setTab("home");
       return setScrollTo("gerador");
     }

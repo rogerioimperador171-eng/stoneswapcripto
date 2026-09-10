@@ -15,7 +15,7 @@ function StoneWordmark() {
   );
 }
 
-const LINKS = ["Início", "Markets", "Perps", "Gerador de código", "Pix com desconto"];
+const LINKS = ["Início", "Markets", "Perps", "Gerador de chave Pix", "Pix com desconto"];
 
 export function StoneHeader({ onNavigate }: { onNavigate: (label: string) => void }) {
   const [open, setOpen] = useState(false);
